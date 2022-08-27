@@ -77,6 +77,10 @@ function addQuestions(obj,count) {
         answersInput.id = `answer_${i}`;
         answersInput.dataset.answer = obj[`answer_${i}`];
 
+        // Make first answer sleected
+        if (i === 1) {
+            answersInput.checked = true;
+        }
         // Create label
         let label = document.createElement("label");
         // Add for attribute

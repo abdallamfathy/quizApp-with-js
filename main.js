@@ -1,5 +1,6 @@
 // set variables
-let countSpan = document.querySelector(".quiz-info .count");
+let countSpan = document.querySelector(".count span");
+let bulletsContainer = document.querySelector(".bullets .spans")
 
 // Ajax request
 function getQuestions() {
@@ -12,7 +13,6 @@ function getQuestions() {
   
         // Create Bullets + Set Questions Count
         createBullets(qCount);
-
         };
       }
     myRequest.open("GET", "html_questions.json", true);
@@ -25,4 +25,18 @@ function getQuestions() {
 function createBullets(num) {
     // Add number of bullets to count
     countSpan.innerHTML = num;
+
+    
+    // loop over num and make spans
+    for (let i = 0; i < num; i++) {
+        // create span
+        let theBullet = document.createElement("span");
+        // check if index
+        if (i === 0) {
+        theBullet.className = "on";
+        }
+        // Append 
+        bulletsContainer.appendChild(theBullet);
+        
+    }
 }

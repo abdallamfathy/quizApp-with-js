@@ -1,7 +1,7 @@
 // set variables
 let countSpan = document.querySelector(".count span");
 let bulletsContainer = document.querySelector(".bullets .spans");
-let quizQuestions = document.querySelector(".quiz-area");
+let quizArea = document.querySelector(".quiz-area");
 let asnwersArea = document.querySelector(".answers-area");
 let submitButton = document.querySelector(".submit-button")
 
@@ -31,10 +31,17 @@ function getQuestions() {
             let rightAnswer = questionsObject[currentIndex].right_answer;
 
             // increment the counter
-            currentIndex++
+            currentIndex++;
             
             // Trigger the check answer function
-            checkAnswer(rightAnswer,qCount)
+            checkAnswer(rightAnswer,qCount);
+
+            // Empty the answered question 
+            quizArea.innerHTML = "";
+            asnwersArea.innerHTML = "";
+
+            // Create addQuestions
+            addQuestions(questionsObject[currentIndex],qCount)
         }
         };
         
@@ -77,7 +84,7 @@ function addQuestions(obj,count) {
     // Add text to title
     title.appendChild(titleText);
     // Append the title to container
-    quizQuestions.appendChild(title);
+    quizArea.appendChild(title);
 
     // Loop to show questions
     for (let i = 1; i <= 4; i++) {

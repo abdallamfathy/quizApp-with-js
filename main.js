@@ -42,6 +42,9 @@ function getQuestions() {
 
             // Create addQuestions
             addQuestions(questionsObject[currentIndex],qCount)
+
+            // trigger spans function
+            handleBullets();
         }
         };
         
@@ -146,4 +149,17 @@ function checkAnswer(rAnswer,count) {
         currentAnswer++;
         
     }
+}
+
+// function handle bullets
+function handleBullets() {
+    
+    // get all spans
+    let spans = document.querySelectorAll(".bullets .spans span");
+    let spansArray = Array.from(spans);
+    spansArray.forEach((span,index) => {
+        if ( currentIndex === index) {
+            span.className = "on";
+        }
+    });
 }

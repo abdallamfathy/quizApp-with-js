@@ -8,6 +8,8 @@ let submitButton = document.querySelector(".submit-button")
 
 // set options 
 let currentIndex = 0;
+let currentAnswer = 0;
+
 // Ajax request
 function getQuestions() {
     let myRequest = new XMLHttpRequest();
@@ -118,6 +120,23 @@ function addQuestions(obj,count) {
 };
 
 function checkAnswer(rAnswer,count) {
-    console.log(rAnswer);
-    console.log(count);
+    // get all answers
+    let answers = document.getElementsByName("question");
+    let chosenAnswer;
+
+    // loop over answer to get chosen one
+    for (let i = 0; i < answers.length; i++) {
+        
+        if (answers[i].checked) {
+           chosenAnswer = answers[i].dataset.answer
+        }
+        
+    }
+    
+    if (rAnswer === chosenAnswer) {
+        
+        // Increment right answers number
+        currentAnswer++;
+        
+    }
 }

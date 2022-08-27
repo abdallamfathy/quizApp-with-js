@@ -29,7 +29,7 @@ function getQuestions() {
         addQuestions(questionsObject[currentIndex],qCount)
 
         // count down function
-        countdown(5,qcount)
+        countdown(10,qCount)
         // Add on submit
         submitButton.onclick = () =>{
             // get the right answer
@@ -50,7 +50,7 @@ function getQuestions() {
 
             // Start CountDown
             clearInterval(countDownInterval);
-            countdown(3, qCount);
+            countdown(10, qCount);
 
             // trigger bullets function
             handleBullets();

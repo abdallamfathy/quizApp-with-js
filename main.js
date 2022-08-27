@@ -214,7 +214,7 @@ function countdown(duration, count) {
         minutes = minutes < 10 ? `0${minutes}` : minutes;
         seconds = seconds < 10 ? `0${seconds}` : seconds;
   
-        countdownElement.innerHTML = `${minutes}:${seconds}`;
+        countDownSpan.innerHTML = `${minutes}:${seconds}`;
   
         if (--duration < 0) {
           clearInterval(countDownInterval);

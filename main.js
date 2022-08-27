@@ -2,7 +2,8 @@
 let countSpan = document.querySelector(".count span");
 let bulletsContainer = document.querySelector(".bullets .spans");
 let quizQuestions = document.querySelector(".quiz-area");
-let asnwersArea = document.querySelector(".answers-area")
+let asnwersArea = document.querySelector(".answers-area");
+let submitButton = document.querySelector(".submit-button")
 
 
 // set options 
@@ -21,7 +22,22 @@ function getQuestions() {
 
         // Create addQuestions
         addQuestions(questionsObject[currentIndex],qCount)
+
+        // Add on submit
+        submitButton.onclick = () =>{
+            // get the right answer
+            let rightAnswer = questionsObject[currentIndex].right_answer;
+
+            // increment the counter
+            currentIndex++
+            
+            // Trigger the check answer function
+            checkAnswer(rightAnswer,qCount)
+        }
         };
+        
+
+        
       }
     myRequest.open("GET", "html_questions.json", true);
     myRequest.send();
@@ -99,4 +115,9 @@ function addQuestions(obj,count) {
         
     }
 
+};
+
+function checkAnswer(rAnswer,count) {
+    console.log(rAnswer);
+    console.log(count);
 }

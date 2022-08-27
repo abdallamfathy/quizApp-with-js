@@ -1,14 +1,17 @@
 // set variables
 let countSpan = document.querySelector(".count span");
+let bullets = document.querySelector(".bullets")
 let bulletsContainer = document.querySelector(".bullets .spans");
 let quizArea = document.querySelector(".quiz-area");
 let asnwersArea = document.querySelector(".answers-area");
-let submitButton = document.querySelector(".submit-button")
-
+let submitButton = document.querySelector(".submit-button");
+let resultsContainer = document.querySelector(".results")
+let countDownSpan = document.querySelector(".countdown")
 
 // set options 
 let currentIndex = 0;
 let currentAnswer = 0;
+let countDownInterval;
 
 // Ajax request
 function getQuestions() {
@@ -25,6 +28,8 @@ function getQuestions() {
         // Create addQuestions
         addQuestions(questionsObject[currentIndex],qCount)
 
+        // count down function
+        countdown(5,qcount)
         // Add on submit
         submitButton.onclick = () =>{
             // get the right answer
@@ -43,8 +48,15 @@ function getQuestions() {
             // Create addQuestions
             addQuestions(questionsObject[currentIndex],qCount)
 
-            // trigger spans function
+            // Start CountDown
+            clearInterval(countDownInterval);
+            countdown(3, qCount);
+
+            // trigger bullets function
             handleBullets();
+
+            // trigger show function
+            showResults(qCount);
         }
         };
         
@@ -80,7 +92,8 @@ function createBullets(num) {
 // create addQuestions function
 function addQuestions(obj,count) {
     
-    // create title
+    if ( currentIndex < count) {
+        // create title
     let title = document.createElement("h2");
     // create text to title
     let titleText = document.createTextNode(obj.title);
@@ -127,6 +140,8 @@ function addQuestions(obj,count) {
         
     }
 
+    }
+    
 };
 
 function checkAnswer(rAnswer,count) {
@@ -163,3 +178,48 @@ function handleBullets() {
         }
     });
 }
+
+// function show results
+function showResults(count) {
+    let theResults;
+    if (currentIndex === count) {
+        quizArea.remove();
+        asnwersArea.remove();
+        submitButton.remove();
+        bullets.remove();    
+
+        if (currentAnswer > count / 2 && currentAnswer < count) {
+            theResults = `<span class="good">Good</span>, ${currentAnswer} From ${count}`;
+          } else if (currentAnswer === count) {
+            theResults = `<span class="perfect">Perfect</span>, All Answers Is Good`;
+          } else {
+            theResults = `<span class="bad">Bad</span>, ${currentAnswer} From ${count}`;
+          }
+      
+          resultsContainer.innerHTML = theResults;
+          resultsContainer.style.padding = "10px";
+          resultsContainer.style.backgroundColor = "white";
+          resultsContainer.style.marginTop = "10px";
+    }
+
+}
+
+function countdown(duration, count) {
+    if (currentIndex < count) {
+      let minutes, seconds;
+      countDownInterval = setInterval(function () {
+        minutes = parseInt(duration / 60);
+        seconds = parseInt(duration % 60);
+  
+        minutes = minutes < 10 ? `0${minutes}` : minutes;
+        seconds = seconds < 10 ? `0${seconds}` : seconds;
+  
+        countdownElement.innerHTML = `${minutes}:${seconds}`;
+  
+        if (--duration < 0) {
+          clearInterval(countDownInterval);
+          submitButton.click();
+        }
+      }, 1000);
+    }
+  }

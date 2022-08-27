@@ -1,7 +1,8 @@
 // set variables
 let countSpan = document.querySelector(".count span");
 let bulletsContainer = document.querySelector(".bullets .spans");
-let quizQuestions = document.querySelector(".quiz-area")
+let quizQuestions = document.querySelector(".quiz-area");
+let asnwersArea = document.querySelector(".answers-area")
 
 
 // set options 
@@ -61,11 +62,13 @@ function addQuestions(obj,count) {
     quizQuestions.appendChild(title);
 
     // Loop to show questions
-    for (let i = 0; i <= 4; i++) {
+    for (let i = 1; i <= 4; i++) {
         
         // Create div that will hold answers
         let answersDiv = document.createElement("div");
-        
+        // Add classname
+        answersDiv.className = "answer";
+
         // Create the input
         let answersInput = document.createElement("input");
         // Add type, name , id , data-set
@@ -73,6 +76,22 @@ function addQuestions(obj,count) {
         answersInput.name = "question";
         answersInput.id = `answer_${i}`;
         answersInput.dataset.answer = obj[`answer_${i}`];
+
+        // Create label
+        let label = document.createElement("label");
+        // Add for attribute
+        label.htmlFor = `answer_${i}`;
+        // Create text
+        let labelText = document.createTextNode(obj[`answer_${i}`]);
+        // Add text to label
+        label.appendChild(labelText);
+
+        // Append input,label to answersDiv
+        answersDiv.appendChild(answersInput);
+        answersDiv.appendChild(label);
+
+        // Append div to answers area
+        asnwersArea.appendChild(answersDiv);
         
     }
 

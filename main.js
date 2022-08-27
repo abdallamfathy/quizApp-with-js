@@ -1,7 +1,11 @@
 // set variables
 let countSpan = document.querySelector(".count span");
-let bulletsContainer = document.querySelector(".bullets .spans")
+let bulletsContainer = document.querySelector(".bullets .spans");
+let quizQuestions = document.querySelector(".quiz-area")
 
+
+// set options 
+let currentIndex = 0;
 // Ajax request
 function getQuestions() {
     let myRequest = new XMLHttpRequest();
@@ -13,6 +17,9 @@ function getQuestions() {
   
         // Create Bullets + Set Questions Count
         createBullets(qCount);
+
+        // Create addQuestions
+        addQuestions(questionsObject[currentIndex],qCount)
         };
       }
     myRequest.open("GET", "html_questions.json", true);
@@ -21,7 +28,7 @@ function getQuestions() {
   
   getQuestions();
   
-// create create bullets function
+// create  bullets function
 function createBullets(num) {
     // Add number of bullets to count
     countSpan.innerHTML = num;
@@ -39,4 +46,34 @@ function createBullets(num) {
         bulletsContainer.appendChild(theBullet);
         
     }
+}
+
+// create addQuestions function
+function addQuestions(obj,count) {
+    
+    // create title
+    let title = document.createElement("h2");
+    // create text to title
+    let titleText = document.createTextNode(obj.title);
+    // Add text to title
+    title.appendChild(titleText);
+    // Append the title to container
+    quizQuestions.appendChild(title);
+
+    // Loop to show questions
+    for (let i = 0; i <= 4; i++) {
+        
+        // Create div that will hold answers
+        let answersDiv = document.createElement("div");
+        
+        // Create the input
+        let answersInput = document.createElement("input");
+        // Add type, name , id , data-set
+        answersInput.type = "radio";
+        answersInput.name = "question";
+        answersInput.id = `answer_${i}`;
+        answersInput.dataset.answer = obj[`answer_${i}`];
+        
+    }
+
 }
